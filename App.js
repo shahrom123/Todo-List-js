@@ -64,7 +64,7 @@ function createLiElement(todo) {
     const checkBox = createCheckBox(li, todo);
     const deleteBtn = createDeleteBtn(li, todo);
 
-    
+
 
     li.innerHTML = todo.text;
 
@@ -91,7 +91,7 @@ function AddToDoTask() {
             categoryName: defaultCategory,
         }
 
-       
+
 
         todoItems.push(todo);
         console.log(todoItems);
@@ -133,22 +133,33 @@ function filterCategory(category) {
         }
         else {
             filterItems = todoItems.filter(i => i.categoryName === category);
-             
+
             listToDo.innerHTML = "";
 
             filterItems.forEach(item => {
                 const li = createLiElement(item);
-                if(category==='sport'){
-                    li.setAttribute("id","sport");
-                }
                 listToDo.appendChild(li);
                 console.log(filterItems);
             });
+
         }
 }
-function CountCategory(){
-    filterItems = todoItems.filter(i => i.categoryName === '');
+function CountCategorySport() {
+    const count = todoItems.filter(i => i.categoryName === 'sport');
+    console.log(count);
+    const n = count.length;
+    // n.innerHTML
+    return n;
 }
+function CountCategoryfamily() {
+    const count = todoItems.filter(i => i.categoryName === 'family');
+    console.log(count);
+}
+function CountCategoryWork() {
+    const count = todoItems.filter(i => i.categoryName === 'work');
+    console.log(count);
+}
+
 function DeleteToDoItemfromArray(id) {
     let index = todoItems.findIndex(function (item) {
         return item.id === id;
