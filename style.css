@@ -1,0 +1,135 @@
+/* *{
+    margin: 0;
+    padding: 0;
+} */
+
+ul {
+    list-style-type: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    /* background-color: rgb(240, 69, 69); */
+    margin-right: 30px;
+    color: rgb(64, 8, 8);
+}
+.sport{
+    background-color: greenyellow;
+}
+
+#todos li {
+    display: block;
+    font-size: 30px;
+    
+}
+
+#category-list li {
+    text-decoration: none;
+    font-size: 30px;
+    background-color: gray;
+    width: 80%;
+    margin: 10px 0px;
+    padding-left: 15px;
+    border-radius: 5px;
+}
+
+.add {
+    cursor: pointer;
+    background-color: gainsboro;
+    border-radius: 5px;
+    padding: 5px 30px;
+    font-size: 20px;
+    border: none;
+}
+
+.add:hover {
+    background-color: rgb(9, 210, 9);
+}
+
+input[type="text"] {
+    font-size: 20px;
+    border-radius: 3px;
+}
+
+select {
+    width: 100px;
+    height: 30px;
+    border: 3px solid green;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 5px;
+
+}
+
+.delete {
+    cursor: pointer;
+    background-color: gainsboro;
+    border-radius: 5px;
+    padding: 7px 30px;
+    font-size: 20px;
+    position: relative;
+    left: 90px;
+    margin-bottom: 7px;
+}
+
+.delete:hover {
+    cursor: pointer;
+    background-color: rgb(227, 29, 29);
+    border-radius: 5px;
+    padding: 7px 30px;
+    font-size: 20px;
+ 
+}
+
+#todos{
+    background-color: grey;
+    border-radius: 10px;
+}
+
+input[type=checkbox] {
+    line-height: normal;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    left: 90px;
+    top: 8px;
+    cursor: pointer;
+}
+
+
+select:hover {
+    background-color: gainsboro;
+}
+
+h1 {
+    text-align: center;
+    color: black;
+   
+}
+
+
+#category-list li:hover {
+    background-color: gainsboro;
+    cursor: pointer;
+}
+
+.flex {
+    background-color: rgb(58, 61, 58);;
+    display: flex;
+}
+
+.center {
+    margin-left: 500px;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: rgb(183, 179, 179);
+    overflow-y: hidden;
+    height: 90vh;
+    padding-top: 50px;
+}
+
+.filter-option {
+    display: block;
+}
