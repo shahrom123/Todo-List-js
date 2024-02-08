@@ -4,7 +4,22 @@ let listToDo = document.getElementById("todos");
 let todoItems = [];
 let defaultCategory = '';
 
+function CountCategorySport() {
 
+    const get = getCategory();
+
+    if (get === 'sport' || get === 'work' || get === 'family') {
+
+        const countCategory = todoItems.filter(i => i.categoryName === get).length + 1;
+
+        const categoryElement = document.getElementById(get);
+
+        categoryElement.innerText = `${get} ${countCategory}`;
+    }
+    const countAll = todoItems.length + 1;
+    const allElement = document.getElementById("all");
+    allElement.innerText = `all ${countAll}`;
+}
 function createCheckBox(li, todo) {
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
@@ -14,13 +29,11 @@ function createCheckBox(li, todo) {
             li.classList.toggle("completed", true);
             li.classList.toggle("uncompleted", false);
 
-            console.log(listToDo);
         }
         else {
             li.classList.toggle("completed", false);
             li.classList.toggle("uncompleted", true);
 
-            console.log(listToDo);
         }
     };
 
@@ -44,19 +57,33 @@ function createDeleteBtn(li, todo) {
     deleteBtn.textContent = "delete";
 
     deleteBtn.setAttribute("class", "delete");
-    deleteBtn.setAttribute("onclick", "CountCategorySport()");
-  
+
     deleteBtn.addEventListener("click", function () {
         //  if(confirm("do you want delete this task?"))
         let liId = li.getAttribute("data-id");
+
         if (todo.id == liId) {
             li.remove();
             DeleteToDoItemfromArray(todo.id);
         }
-        console.log(todoItems);
+        const countAll = todoItems.length;
+        const allElement = document.getElementById("all");
+        allElement.innerText = `all ${countAll}`;
+
+        console.log(todo.categoryName);
+
+        if (todo.categoryName === 'sport' || todo.categoryName === 'work' || todo.categoryName === 'family') {
+
+            const countCategory = todoItems.filter(i => i.categoryName === todo.categoryName).length;
+
+            const categoryElement = document.getElementById(todo.categoryName);
+
+            categoryElement.innerText = `${todo.categoryName} ${countCategory}`;
+        }
     });
+
     return deleteBtn;
-    
+
 }
 
 function createLiElement(todo) {
@@ -66,11 +93,14 @@ function createLiElement(todo) {
 
     const checkBox = createCheckBox(li, todo);
     const deleteBtn = createDeleteBtn(li, todo);
+    const clear = document.createElement("span");
+    clear.innerText = todo.categoryName;
+    console.log(todo.categoryName);
 
     li.innerText = todo.text;
 
     let br = document.createElement("br");
-
+    li.appendChild(clear);
     li.appendChild(checkBox);
     li.appendChild(deleteBtn);
     li.appendChild(br);
@@ -78,7 +108,6 @@ function createLiElement(todo) {
     li.classList.toggle("uncompleted", true);
 
     return li;
-
 }
 
 function AddToDoTask() {
@@ -91,15 +120,12 @@ function AddToDoTask() {
             id: Date.now(),
             categoryName: defaultCategory,
         }
-
         todoItems.push(todo);
-        console.log(todoItems);
 
         const li = createLiElement(todo);
 
         listToDo.appendChild(li);
 
-        console.log(listToDo);
     }
 }
 function getCategory() {
@@ -111,9 +137,6 @@ function getCategory() {
     else {
         defaultCategory = category;
     }
-
-    console.log(defaultCategory);
-    console.log(category);
     return category;
 }
 
@@ -130,7 +153,6 @@ function filterCategory(category) {
             todoItems.forEach(item => {
                 const li = createLiElement(item);
                 listToDo.appendChild(li);
-                console.log(todoItems);
             });
         }
         else {
@@ -141,57 +163,12 @@ function filterCategory(category) {
             filterItems.forEach(item => {
                 const li = createLiElement(item);
                 listToDo.appendChild(li);
-                console.log(filterItems);
             });
-
         }
-
+    return filterItems;
 }
 
-function CountCategorySport() {
-
-    const get = getCategory();
-    if (get === 'sport') {
-        const countSport = todoItems.filter(i => i.categoryName === get);
-        const countS = countSport.length+1 ;
-        const d = document.getElementById("sport").innerText = " ";
-
-        console.log(countS);
-
-        document.getElementById("sport").innerText += get + "  " + countS;
-    }
-    else if (get === 'work') {
-        const countSport = todoItems.filter(i => i.categoryName === get);
-        const countS = countSport.length ;
-        const d = document.getElementById("work").innerText = " ";
-
-        console.log(countS);
-
-        document.getElementById("work").innerText += get + "  " + countS;
-    }
-    else if (get === 'family') {
-        const countSport = todoItems.filter(i => i.categoryName === get);
-        const countS = countSport.length;
-        const d = document.getElementById("family").innerText = " ";
-
-        console.log(countS);
-
-        document.getElementById("family").innerText += get + "  " + countS;
-    }
-    if (get || defaultCategory == '') {
-        const countAll = todoItems.length;
-        const d = document.getElementById("all").innerText = " ";
-
-        console.log(countAll);
-        const get = 'all';
-
-        document.getElementById("all").innerText += get + "  " + countAll;
-    }
-
-}
-
-function DeleteCount(){
-
+function addCount() {
     CountCategorySport();
     AddToDoTask();
 }
