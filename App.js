@@ -128,6 +128,7 @@ function AddToDoTask() {
 
     }
 }
+
 function getCategory() {
     const categoryName = document.getElementById("filterCategory");
     const category = categoryName.value;
