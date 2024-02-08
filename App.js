@@ -1,3 +1,4 @@
+
 let inputPost = document.getElementById("post");
 let listToDo = document.getElementById("todos");
 
@@ -20,6 +21,7 @@ function CountCategorySport() {
     const allElement = document.getElementById("all");
     allElement.innerText = `all ${countAll}`;
 }
+
 function createCheckBox(li, todo) {
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");

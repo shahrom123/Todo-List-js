@@ -9,45 +9,43 @@
 </head>
 
 <body>
- <div class="flex">
-  <div class="sidebar">
-    <h1>Todo App</h1>
-    <div style="text-align: center;">
-      <img src="./tdo.avif" width="200"  height="200" alt="">
-    </div>
-    
-    <ul id="category-list">
-      <li onclick="filterCategory('all')"    id="all">all</li> 
-      <li onclick="filterCategory('family')"  id="family">family</li>
-      <li onclick="filterCategory('work')"   id="work" >work</li>
-      <li onclick="filterCategory('sport')"  id="sport">sport</li>
-    </ul>
-
-  </div>
-  <div class="center">
-    <div class="dashboard">
-      <h1 style="text-align: center;">My ToDo List in JavaScript</h1>
-
-      <input type="text" id="post" placeholder=" New Task " autocomplete="off">
-
-      <select name="" id="filterCategory" onchange="getCategory()">
-        <option class="category"  value="all">All </option>
-        <option class="category"  value="work">work</option>
-        <option class="category"  value="sport">sport</option>
-        <option class="category"  value="family">family</option>
-      </select>
-
-      <button type="button" class="add" onclick=" addCount()" >add</button>
-      <ul id="todos">
-        <!-- li alements -->
+  <div class="flex">
+    <div class="sidebar">
+      <h1>Todo App</h1>
+      <div style="text-align: center;">
+        <img src="./tdo.avif" width="200" height="200" alt="">
+      </div>
+      <ul id="category-list">
+        <li onclick="filterCategory('all')" id="all">all</li>
+        <li onclick="filterCategory('family')" id="family">family</li>
+        <li onclick="filterCategory('work')" id="work">work</li>
+        <li onclick="filterCategory('sport')" id="sport">sport</li>
       </ul>
     </div>
+    <div class="center">
+      <div class="dashboard">
+        <h1 style="text-align: center;">My ToDo List in JavaScript</h1>
+
+        <input type="text" id="post" placeholder=" New Task " autocomplete="off">
+
+        <select name="" id="filterCategory" onchange="getCategory()">
+          <option class="category" value="all">All </option>
+          <option class="category" value="work">work</option>
+          <option class="category" value="sport">sport</option>
+          <option class="category" value="family">family</option>
+        </select>
+
+        <button type="button" class="add" onclick=" addCount()">add</button>
+        <ul id="todos">
+          <!-- li alements -->
+        </ul>
+      </div>
+    </div>
   </div>
- </div>
 
-<script src="./App.js">
+  <script src="./App.js">
+
   </script>
-
 </body>
 
 </html>

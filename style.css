@@ -13,15 +13,14 @@ ul {
     margin-right: 30px;
     color: rgb(64, 8, 8);
 }
-.sport{
-    background-color: greenyellow;
 
+.sport {
+    background-color: greenyellow;
 }
 
 #todos li {
     display: block;
     font-size: 30px;
-    
 }
 
 #category-list li {
@@ -59,7 +58,6 @@ select {
     cursor: pointer;
     font-size: 20px;
     border-radius: 5px;
-
 }
 
 .delete {
@@ -79,10 +77,9 @@ select {
     border-radius: 5px;
     padding: 7px 30px;
     font-size: 20px;
- 
 }
 
-#todos{
+#todos {
     background-color: grey;
     border-radius: 10px;
 }
@@ -102,7 +99,7 @@ select:hover {
     background-color: gainsboro;
 }
 
-span{
+span {
     position: relative;
     left: 20px;
     font-size: 20px;
@@ -111,7 +108,6 @@ span{
 h1 {
     text-align: center;
     color: black;
-   
 }
 
 
