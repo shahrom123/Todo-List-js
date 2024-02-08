@@ -17,11 +17,12 @@
     </div>
     
     <ul id="category-list">
-      <li onclick="filterCategory('all')"    >all</li>
-      <li onclick="filterCategory('family')"  >family</li>
-      <li onclick="filterCategory('work')"   >work</li>
-      <li onclick="filterCategory('sport')">sport</li>
+      <li onclick="filterCategory('all')"    id="all">all</li> 
+      <li onclick="filterCategory('family')"  id="family">family</li>
+      <li onclick="filterCategory('work')"   id="work" >work</li>
+      <li onclick="filterCategory('sport')"  id="sport">sport</li>
     </ul>
+
   </div>
   <div class="center">
     <div class="dashboard">
@@ -36,19 +37,13 @@
         <option class="category"  value="family">family</option>
       </select>
 
-      <button type="button" class="add" onclick="AddToDoTask()">add</button>
+      <button type="button" class="add" onclick=" DeleteCount()" >add</button>
       <ul id="todos">
         <!-- li alements -->
       </ul>
     </div>
   </div>
  </div>
-
- 
-<button onclick="CountCategorySport()">CountCategory
-
-</button> 
-
 
 <script src="./App.js">
   </script>

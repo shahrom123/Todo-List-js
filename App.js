@@ -2,7 +2,7 @@ let inputPost = document.getElementById("post");
 let listToDo = document.getElementById("todos");
 
 let todoItems = [];
-let defaultCategory = "";
+let defaultCategory = '';
 
 
 function createCheckBox(li, todo) {
@@ -44,7 +44,8 @@ function createDeleteBtn(li, todo) {
     deleteBtn.textContent = "delete";
 
     deleteBtn.setAttribute("class", "delete");
-
+    deleteBtn.setAttribute("onclick", "CountCategorySport()");
+  
     deleteBtn.addEventListener("click", function () {
         //  if(confirm("do you want delete this task?"))
         let liId = li.getAttribute("data-id");
@@ -52,8 +53,10 @@ function createDeleteBtn(li, todo) {
             li.remove();
             DeleteToDoItemfromArray(todo.id);
         }
+        console.log(todoItems);
     });
     return deleteBtn;
+    
 }
 
 function createLiElement(todo) {
@@ -64,9 +67,7 @@ function createLiElement(todo) {
     const checkBox = createCheckBox(li, todo);
     const deleteBtn = createDeleteBtn(li, todo);
 
-
-
-    li.innerHTML = todo.text;
+    li.innerText = todo.text;
 
     let br = document.createElement("br");
 
@@ -91,8 +92,6 @@ function AddToDoTask() {
             categoryName: defaultCategory,
         }
 
-
-
         todoItems.push(todo);
         console.log(todoItems);
 
@@ -106,7 +105,10 @@ function AddToDoTask() {
 function getCategory() {
     const categoryName = document.getElementById("filterCategory");
     const category = categoryName.value;
-    if (category !== 'all') {
+    if (category === 'all') {
+        defaultCategory = "";
+    }
+    else {
         defaultCategory = category;
     }
 
@@ -123,7 +125,7 @@ function filterCategory(category) {
 
         if (category === 'all') {
 
-            listToDo.innerHTML = "";
+            listToDo.innerText = "";
 
             todoItems.forEach(item => {
                 const li = createLiElement(item);
@@ -134,7 +136,7 @@ function filterCategory(category) {
         else {
             filterItems = todoItems.filter(i => i.categoryName === category);
 
-            listToDo.innerHTML = "";
+            listToDo.innerText = "";
 
             filterItems.forEach(item => {
                 const li = createLiElement(item);
@@ -143,21 +145,55 @@ function filterCategory(category) {
             });
 
         }
+
 }
+
 function CountCategorySport() {
-    const count = todoItems.filter(i => i.categoryName === 'sport');
-    console.log(count);
-    const n = count.length;
-    // n.innerHTML
-    return n;
+
+    const get = getCategory();
+    if (get === 'sport') {
+        const countSport = todoItems.filter(i => i.categoryName === get);
+        const countS = countSport.length+1 ;
+        const d = document.getElementById("sport").innerText = " ";
+
+        console.log(countS);
+
+        document.getElementById("sport").innerText += get + "  " + countS;
+    }
+    else if (get === 'work') {
+        const countSport = todoItems.filter(i => i.categoryName === get);
+        const countS = countSport.length ;
+        const d = document.getElementById("work").innerText = " ";
+
+        console.log(countS);
+
+        document.getElementById("work").innerText += get + "  " + countS;
+    }
+    else if (get === 'family') {
+        const countSport = todoItems.filter(i => i.categoryName === get);
+        const countS = countSport.length;
+        const d = document.getElementById("family").innerText = " ";
+
+        console.log(countS);
+
+        document.getElementById("family").innerText += get + "  " + countS;
+    }
+    if (get || defaultCategory == '') {
+        const countAll = todoItems.length;
+        const d = document.getElementById("all").innerText = " ";
+
+        console.log(countAll);
+        const get = 'all';
+
+        document.getElementById("all").innerText += get + "  " + countAll;
+    }
+
 }
-function CountCategoryfamily() {
-    const count = todoItems.filter(i => i.categoryName === 'family');
-    console.log(count);
-}
-function CountCategoryWork() {
-    const count = todoItems.filter(i => i.categoryName === 'work');
-    console.log(count);
+
+function DeleteCount(){
+
+    CountCategorySport();
+    AddToDoTask();
 }
 
 function DeleteToDoItemfromArray(id) {
