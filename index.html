@@ -15,27 +15,26 @@
       <div style="text-align: center;">
         <img src="./tdo.avif" width="200" height="200" alt="">
       </div>
-      <ul id="category-list">
-        <li onclick="filterCategory('all')" id="all">all</li>
-        <li onclick="filterCategory('family')" id="family">family</li>
-        <li onclick="filterCategory('work')" id="work">work</li>
-        <li onclick="filterCategory('sport')" id="sport">sport</li>
+      <ul id="list-of-category">
+        <li data-id="0" onclick="filterCategory('0')" id="0">all</li>
+        <li data-id="1" onclick="filterCategory('1')" id="1">family</li>
+        <li data-id="2" onclick="filterCategory('2')" id="2">work</li>
+        <li data-id="3" onclick="filterCategory('3')" id="3">sport</li>
       </ul>
     </div>
     <div class="center">
       <div class="dashboard">
-        <h1 style="text-align: center;">My ToDo List in JavaScript</h1>
+        <h1 style="text-align: center; color: white;" >My tasks to do list </h1>
 
         <input type="text" id="post" placeholder=" New Task " autocomplete="off">
 
-        <select name="" id="filterCategory" onchange="getCategory()">
-          <option class="category" value="all">All </option>
-          <option class="category" value="work">work</option>
-          <option class="category" value="sport">sport</option>
-          <option class="category" value="family">family</option>
+        <select name="" id="filterCategory" onchange="setCategory()">
+          <option class="category" value="1">family</option>
+          <option class="category" value="2">work</option>
+          <option class="category" value="3">sport</option>
         </select>
 
-        <button type="button" class="add" onclick=" addCount()">add</button>
+        <button type="button" class="add" onclick="addTodoTask()">add</button>
         <ul id="todos">
           <!-- li alements -->
         </ul>

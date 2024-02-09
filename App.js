@@ -3,23 +3,57 @@ let inputPost = document.getElementById("post");
 let listToDo = document.getElementById("todos");
 
 let todoItems = [];
-let defaultCategory = '';
 
-function CountCategorySport() {
+const constCategory = [
+    { id: 0, name: "All" },
+    { id: 1, name: "family" },
+    { id: 2, name: "Work" },
+    { id: 3, name: "Sport" },
+];
 
-    const get = getCategory();
 
-    if (get === 'sport' || get === 'work' || get === 'family') {
+function addTodoTask() {
+    if (inputPost.value === '')
+        alert("You must write something");
+    else {
+        const selectedCategory = setCategory();
+        const categoryObject = constCategory.find(category => category.id === selectedCategory);
 
-        const countCategory = todoItems.filter(i => i.categoryName === get).length + 1;
+        const todo = {
+            id: Date.now(),
+            text: inputPost.value,
+            checked: false,
+            categoryId: categoryObject ? categoryObject.id : 0,
+        }
 
-        const categoryElement = document.getElementById(get);
-
-        categoryElement.innerText = `${get} ${countCategory}`;
+        todoItems.push(todo);
+        const li = createLiElement(todo);
+        listToDo.appendChild(li);
+        countCategory();
+        console.log(todoItems);
     }
-    const countAll = todoItems.length + 1;
-    const allElement = document.getElementById("all");
-    allElement.innerText = `all ${countAll}`;
+}
+
+function countCategory() {
+
+    // const selectedCategoryId = setCategory()
+    // const selectedCategory = constCategory.find(category => category.id === selectedCategoryId);
+     const  sm = constCategory.find(c=>c.id===0); 
+    if (sm) {
+        const countAll = todoItems.length;
+        const allElement = document.getElementById(sm);
+
+        allElement.innerText = `${sm.name}, ${countAll}`;
+    }
+
+    if (selectedCategoryId !== 0) {
+        const countCategory = todoItems.filter(i => i.categoryId === selectedCategoryId).length;
+
+        const categoryElement = document.getElementById(selectedCategoryId);
+
+        categoryElement.setAttribute("class", selectedCategoryId);
+        categoryElement.innerText = `${selectedCategory.name}, ${countCategory}`;
+    }
 }
 
 function createCheckBox(li, todo) {
@@ -27,18 +61,10 @@ function createCheckBox(li, todo) {
     checkBox.setAttribute("type", "checkbox");
 
     checkBox.onchange = function (e) {
-        if (e.target.checked == true) {
-            li.classList.toggle("completed", true);
-            li.classList.toggle("uncompleted", false);
-
-        }
-        else {
-            li.classList.toggle("completed", false);
-            li.classList.toggle("uncompleted", true);
-
-        }
+        li.classList.toggle("completed", e.target.checked);
     };
 
+    console.log(listToDo);
     // if (todo.checked == false) {
     //     checkBox.setAttribute("type", "checkbox");
     //     listToDo1.setAttribute("class", "uncompleted");
@@ -61,31 +87,16 @@ function createDeleteBtn(li, todo) {
     deleteBtn.setAttribute("class", "delete");
 
     deleteBtn.addEventListener("click", function () {
-        //  if(confirm("do you want delete this task?"))
         let liId = li.getAttribute("data-id");
 
         if (todo.id == liId) {
             li.remove();
-            DeleteToDoItemfromArray(todo.id);
-        }
-        const countAll = todoItems.length;
-        const allElement = document.getElementById("all");
-        allElement.innerText = `all ${countAll}`;
-
-        console.log(todo.categoryName);
-
-        if (todo.categoryName === 'sport' || todo.categoryName === 'work' || todo.categoryName === 'family') {
-
-            const countCategory = todoItems.filter(i => i.categoryName === todo.categoryName).length;
-
-            const categoryElement = document.getElementById(todo.categoryName);
-
-            categoryElement.innerText = `${todo.categoryName} ${countCategory}`;
+            deleteToDoItemfromArray(todo.id);
+            countCategory();
         }
     });
 
     return deleteBtn;
-
 }
 
 function createLiElement(todo) {
@@ -95,14 +106,11 @@ function createLiElement(todo) {
 
     const checkBox = createCheckBox(li, todo);
     const deleteBtn = createDeleteBtn(li, todo);
-    const clear = document.createElement("span");
-    clear.innerText = todo.categoryName;
-    console.log(todo.categoryName);
 
     li.innerText = todo.text;
 
-    let br = document.createElement("br");
-    li.appendChild(clear);
+    const br = document.createElement("br");
+
     li.appendChild(checkBox);
     li.appendChild(deleteBtn);
     li.appendChild(br);
@@ -112,71 +120,43 @@ function createLiElement(todo) {
     return li;
 }
 
-function AddToDoTask() {
-    if (inputPost.value === '')
-        alert("You must write something");
-    else {
-        const todo = {
-            text: inputPost.value,
-            checked: false,
-            id: Date.now(),
-            categoryName: defaultCategory,
-        }
-        todoItems.push(todo);
-
-        const li = createLiElement(todo);
-
-        listToDo.appendChild(li);
-
-    }
+function setCategory() {
+    const categoryId = document.getElementById("filterCategory");
+    return parseInt(categoryId.value, 10);
 }
 
-function getCategory() {
-    const categoryName = document.getElementById("filterCategory");
-    const category = categoryName.value;
-    if (category === 'all') {
-        defaultCategory = "";
-    }
-    else {
-        defaultCategory = category;
-    }
-    return category;
-}
-
-function filterCategory(category) {
+function filterCategory(categoryId) {
 
     let filterItems = [];
 
-    if (category)
+    const converCategoryId = parseInt(categoryId, 10);
 
-        if (category === 'all') {
+    if (converCategoryId === 0) {
 
-            listToDo.innerText = "";
+        listToDo.innerText = "";
 
-            todoItems.forEach(item => {
-                const li = createLiElement(item);
-                listToDo.appendChild(li);
-            });
-        }
-        else {
-            filterItems = todoItems.filter(i => i.categoryName === category);
+        todoItems.forEach(item => {
+            const li = createLiElement(item);
+            listToDo.appendChild(li);
+        });
 
-            listToDo.innerText = "";
 
-            filterItems.forEach(item => {
-                const li = createLiElement(item);
-                listToDo.appendChild(li);
-            });
-        }
+    }
+    else {
+        filterItems = todoItems.filter(i => i.categoryId === parseInt(categoryId, 10));
+
+        listToDo.innerText = "";
+
+        filterItems.forEach(item => {
+            const li = createLiElement(item);
+            listToDo.appendChild(li);
+        });
+    }
     return filterItems;
 }
 
-function addCount() {
-    CountCategorySport();
-    AddToDoTask();
-}
+function deleteToDoItemfromArray(id) {
 
-function DeleteToDoItemfromArray(id) {
     let index = todoItems.findIndex(function (item) {
         return item.id === id;
     })
