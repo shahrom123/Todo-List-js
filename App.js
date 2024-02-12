@@ -35,47 +35,34 @@ function addTodoTask() {
 }
 
 function countCategory() {
+    const selectedCategoryId = setCategory();
+    const selectedCategory = constCategory.find(category => category.id === selectedCategoryId);
 
-    // const selectedCategoryId = setCategory()
-    // const selectedCategory = constCategory.find(category => category.id === selectedCategoryId);
-     const  sm = constCategory.find(c=>c.id===0); 
-    if (sm) {
-        const countAll = todoItems.length;
-        const allElement = document.getElementById(sm);
+    const countAll = todoItems.length;
+    const allElement = document.getElementById("0");
 
-        allElement.innerText = `${sm.name}, ${countAll}`;
-    }
+    const ConstCategoryAll = "all";
+
+    allElement.innerText = `${ConstCategoryAll} , ${countAll}`;
 
     if (selectedCategoryId !== 0) {
-        const countCategory = todoItems.filter(i => i.categoryId === selectedCategoryId).length;
+        const countCategories = todoItems.filter(i => i.categoryId === selectedCategoryId).length;
 
         const categoryElement = document.getElementById(selectedCategoryId);
 
-        categoryElement.setAttribute("class", selectedCategoryId);
-        categoryElement.innerText = `${selectedCategory.name}, ${countCategory}`;
+        categoryElement.innerText = `${selectedCategory.name}, ${countCategories}`;
     }
 }
 
-function createCheckBox(li, todo) {
+
+
+function createCheckBox(li) {
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
 
     checkBox.onchange = function (e) {
         li.classList.toggle("completed", e.target.checked);
     };
-
-    console.log(listToDo);
-    // if (todo.checked == false) {
-    //     checkBox.setAttribute("type", "checkbox");
-    //     listToDo1.setAttribute("class", "uncompleted");
-    //     todo.checked = false;
-    // }
-    // else {
-    //     checkBox.setAttribute("type", "checkbox");
-    //     checkBox.setAttribute("checked", "checked");
-    //     listToDo1.setAttribute("class", "completed");
-    //     todo.checked = true;
-    // }
     return checkBox;
 }
 
@@ -92,11 +79,29 @@ function createDeleteBtn(li, todo) {
         if (todo.id == liId) {
             li.remove();
             deleteToDoItemfromArray(todo.id);
-            countCategory();
+            countElementByCategoryAfterDelete(todo.categoryId);    
         }
     });
 
     return deleteBtn;
+}
+
+function countElementByCategoryAfterDelete(id) {
+
+    const selectedCategory = constCategory.find(category => category.id === id);
+
+    const countAll = todoItems.length;
+    const allElement = document.getElementById("0");
+    const ConstCategoryAll = "all";
+    allElement.innerText = `${ConstCategoryAll} , ${countAll}`;
+     
+    if (id > 0) {
+        const countCategories = todoItems.filter(i => i.categoryId === id).length;
+       let IdToString = id.toString();
+        const categoryElement = document.getElementById(IdToString);
+
+        categoryElement.innerText = `${selectedCategory ? selectedCategory.name :" "}, ${countCategories}`;
+    }
 }
 
 function createLiElement(todo) {
@@ -139,7 +144,6 @@ function filterCategory(categoryId) {
             const li = createLiElement(item);
             listToDo.appendChild(li);
         });
-
 
     }
     else {
